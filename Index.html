@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Beautiful Things</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        header {
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .generator-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .display-area {
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .art-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+        }
+        
+        .shape {
+            position: absolute;
+            transition: all 1.5s ease-in-out;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.8;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .geometric-shape {
+            position: absolute;
+            transition: all 1s ease;
+            opacity: 0.8;
+        }
+        
+        .quote-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 80%;
+            margin: 0 auto;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .author {
+            font-size: 1.2rem;
+            text-align: right;
+            opacity: 0.8;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
+            100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(10px) translateX(-15px); }
+            75% { transform: translateY(-15px) translateX(-10px); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .quote { font-size: 1.4rem; }
+            .display-area { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Random Beautiful Things</h1>
+            <p class="subtitle">Click the button below to generate stunning visual elements. Each creation is unique and algorithmically generated.</p>
+        </header>
+        
+        <div class="generator-container">
+            <div class="controls">
+                <button id="generateBtn">Generate Beauty</button>
+                <button id="generateQuote">Inspirational Quote</button>
+                <button id="generateBubbles">Floating Bubbles</button>
+            </div>
+            
+            <div class="display-area">
+                <div class="art-container" id="artContainer">
+                    <!-- Generated art will appear here -->
+                    <div class="welcome-message">
+                        <h2>Click a button to begin</h2>
+                        <p>Your beautiful creation will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Created with HTML, CSS, and JavaScript | Each creation is uniquely generated</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const artContainer = document.getElementById('artContainer');
+            const generateBtn = document.getElementById('generateBtn');
+            const generateQuote = document.getElementById('generateQuote');
+            const generateBubbles = document.getElementById('generateBubbles');
+            
+            // Color palettes for the generated art
+            const colorPalettes = [
+                ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7'],
+                ['#FF6B6B', '#4ECDC4', '#F7FFF7', '#FFE66D', '#1A535C'],
+                ['#5D4157', '#838689', '#A8CABA', '#CAD7B2', '#EBE3AA'],
+                ['#2A4D69', '#4B86B4', '#63ACE5', '#E7EFF6', '#ADBED2'],
+                ['#3C3B6E', '#B22234', '#FFFFFF', '#FFFFFF', '#B22234']
+            ];
+            
+            // Inspirational quotes
+            const quotes = [
+                { text: "The world is full of beautiful things. Pay attention.", author: "Unknown" },
+                { text: "Creativity is intelligence having fun.", author: "Albert Einstein" },
+                { text: "Every moment is a fresh beginning.", author: "T.S. Eliot" },
+                { text: "Beauty begins the moment you decide to be yourself.", author: "Coco Chanel" },
+                { text: "Art is the lie that enables us to realize the truth.", author: "Pablo Picasso" },
+                { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein" },
+                { text: "The earth has music for those who listen.", author: "William Shakespeare" },
+                { text: "Colors are the smiles of nature.", author: "Leigh Hunt" }
+            ];
+            
+            // Generate random beautiful shapes
+            generateBtn.addEventListener('click', function() {
+                artContainer.innerHTML = '';
+                const palette = getRandomItem(colorPalettes);
+                
+                // Create 15-25 random shapes
+                const shapeCount = 15 + Math.floor(Math.random() * 11);
+                
+                for (let i = 0; i < shapeCount; i++) {
+                    createRandomShape(palette);
+                }
+                
+                animateShapes();
+            });
+            
+            // Generate floating bubbles
+            generateBubbles.addEventListener('click', function() {
+                artContainer.innerHTML = '';
+                const bubbleCount = 20 + Math.floor(Math.random() * 21);
+                
+                for (let i = 0; i < bubbleCount; i++) {
+                    createBubble();
+                }
+            });
+            
+            // Generate inspirational quote
+            generateQuote.addEventListener('click', function() {
+                artContainer.innerHTML = '';
+                const quote = getRandomItem(quotes);
+                
+                const quoteBox = document.createElement('div');
+                quoteBox.className = 'quote-box';
+                quoteBox.style.animation = 'pulse 2s ease';
+                
+                const quoteElement = document.createElement('div');
+                quoteElement.className = 'quote';
+                quoteElement.textContent = `"${quote.text}"`;
+                
+                const authorElement = document.createElement('div');
+                authorElement.className = 'author';
+                authorElement.textContent = `— ${quote.author}`;
+                
+                quoteBox.appendChild(quoteElement);
+                quoteBox.appendChild(authorElement);
+                artContainer.appendChild(quoteBox);
+                
+                // Add decorative shapes around the quote
+                const palette = getRandomItem(colorPalettes);
+                for (let i = 0; i < 8; i++) {
+                    createDecorativeShape(palette);
+                }
+            });
+            
+            // Helper function to get random item from array
+            function getRandomItem(array) {
+                return array[Math.floor(Math.random() * array.length)];
+            }
+            
+            // Create a random decorative shape
+            function createDecorativeShape(palette) {
+                const shape = document.createElement('div');
+                shape.className = 'shape';
+                
+                const size = 20 + Math.random() * 100;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const color = getRandomItem(palette);
+                const rotation = Math.random() * 360;
+                
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                shape.style.left = `${left}%`;
+                shape.style.top = `${top}%`;
+                shape.style.background = color;
+                shape.style.opacity = 0.3 + Math.random() * 0.5;
+                shape.style.transform = `rotate(${rotation}deg)`;
+                shape.style.borderRadius = getRandomBorderRadius();
+                
+                artContainer.appendChild(shape);
+            }
+            
+            // Create a random shape
+            function createRandomShape(palette) {
+                const shape = document.createElement('div');
+                shape.className = 'geometric-shape';
+                
+                // Random properties
+                const size = 30 + Math.random() * 170;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const color = getRandomItem(palette);
+                const rotation = Math.random() * 360;
+                const shapeType = Math.floor(Math.random() * 4);
+                
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                shape.style.left = `${left}%`;
+                shape.style.top = `${top}%`;
+                shape.style.background = color;
+                shape.style.transform = `rotate(${rotation}deg)`;
+                
+                // Different shape types
+                switch(shapeType) {
+                    case 0: // Circle
+                        shape.style.borderRadius = '50%';
+                        break;
+                    case 1: // Triangle
+                        shape.style.width = '0';
+                        shape.style.height = '0';
+                        shape.style.background = 'transparent';
+                        shape.style.borderLeft = `${size/2}px solid transparent`;
+                        shape.style.borderRight = `${size/2}px solid transparent`;
+                        shape.style.borderBottom = `${size}px solid ${color}`;
+                        break;
+                    case 2: // Rectangle with rounded corners
+                        shape.style.borderRadius = `${Math.random() * 50}%`;
+                        break;
+                    case 3: // Complex polygon
+                        shape.style.clipPath = getRandomClipPath();
+                        break;
+                }
+                
+                // Add a subtle shadow
+                shape.style.boxShadow = `0 0 ${10 + Math.random() * 20}px rgba(255, 255, 255, ${0.2 + Math.random() * 0.3})`;
+                
+                artContainer.appendChild(shape);
+                return shape;
+            }
+            
+            // Create floating bubbles
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = 10 + Math.random() * 90;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const hue = Math.floor(Math.random() * 360);
+                const animationDuration = 5 + Math.random() * 10;
+                const animationDelay = Math.random() * 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.top = `${top}%`;
+                bubble.style.background = `radial-gradient(circle at 30% 30%, hsla(${hue}, 100%, 90%, 0.8), hsla(${hue}, 100%, 70%, 0.3))`;
+                bubble.style.animationDuration = `${animationDuration}s`;
+                bubble.style.animationDelay = `${animationDelay}s`;
+                
+                artContainer.appendChild(bubble);
+            }
+            
+            // Animate shapes with random movement
+            function animateShapes() {
+                const shapes = document.querySelectorAll('.geometric-shape');
+                
+                shapes.forEach(shape => {
+                    // Random movement
+                    const newLeft = Math.random() * 90;
+                    const newTop = Math.random() * 90;
+                    const newRotation = Math.random() * 360;
+                    
+                    shape.style.transition = 'all 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
+                    shape.style.left = `${newLeft}%`;
+                    shape.style.top = `${newTop}%`;
+                    shape.style.transform = `rotate(${newRotation}deg)`;
+                    shape.style.opacity = 0.4 + Math.random() * 0.5;
+                });
+                
+                // Continue the animation
+                setTimeout(animateShapes, 4000);
+            }
+            
+            // Helper function for random border radius
+            function getRandomBorderRadius() {
+                return `${Math.random() * 50}% ${Math.random() * 50}% ${Math.random() * 50}% ${Math.random() * 50}%`;
+            }
+            
+            // Helper function for random clip path
+            function getRandomClipPath() {
+                const types = [
+                    'polygon(50% 0%, 0% 100%, 100% 100%)',
+                    'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                    'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
+                    'polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)'
+                ];
+                return getRandomItem(types);
+            }
+            
+            // Generate initial bubbles
+            for (let i = 0; i < 15; i++) {
+                createBubble();
+            }
+        });
+    </script>
+</body>
+</html>
